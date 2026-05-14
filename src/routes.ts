@@ -2,6 +2,7 @@ import { FastifyInstance } from "fastify";
 import { TransactionRequest, TransactionResponse } from "./types/transaction-type";
 import { DataBundle } from "./service/loader";
 import { sharedQuery, toVector } from "./service/vectorize";
+import { fraudScoreSchema } from "./schema/fraude-score-shcema";
 
 export async function Routes(
     app: FastifyInstance,
@@ -13,7 +14,7 @@ export async function Routes(
     })
 
     app.post<{ Body: TransactionRequest; Reply: TransactionResponse }>
-    ("/fraud-score", async (req, reply) => {
+    ("/fraud-score", { schema: fraudScoreSchema }, async (req, reply) => {
 
         try {
             toVector(req.body, sharedQuery, norm, mcc);

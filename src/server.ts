@@ -6,7 +6,7 @@ const app = Fastify({ logger: false });
 
 async function main() {
     
-    const dataset = await loadSet();
+    const dataset = loadSet();
 
     await Routes(app, dataset);
 

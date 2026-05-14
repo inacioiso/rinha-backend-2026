@@ -1,37 +1,34 @@
-import { readFile } from 'node:fs/promises';
+import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { gunzip } from "node:zlib";
-import { promisify } from "node:util";
-import { MccRiskMap, NormalizationConstants } from '../types/transaction-type';
-import { buildKnnIndex, KnnIndex } from './knn';
+import { KnnIndex } from "./knn.js";
+import { MccRiskMap, NormalizationConstants } from "../types/transaction-type.js";
 
 export interface DataBundle {
-    norm: NormalizationConstants,
-    mcc: MccRiskMap,
-    index: KnnIndex 
+    norm: NormalizationConstants;
+    mcc: MccRiskMap;
+    index: KnnIndex;
 }
 
-const gunzipPromise = promisify(gunzip);
-const RESOURCES_DIR = join(process.cwd(), 'resources');
+const RESOURCES_DIR = join(process.cwd(), "resources");
+const VECTOR_SIZE = 14;
 
-export async function loadSet(): Promise<DataBundle> {
-    try {
-        const [ normS, mccS, referenceS ] = await Promise.all([
-        readFile(join(RESOURCES_DIR, "normalization.json"), "utf-8"),
-        readFile(join(RESOURCES_DIR, "mcc_risk.json"), "utf8"),
-        readFile(join(RESOURCES_DIR, "references.json.gz"))
-    ]);
+export function loadSet(): DataBundle {
+    const norm: NormalizationConstants = JSON.parse(
+        readFileSync(join(RESOURCES_DIR, "normalization.json"), "utf8")
+    );
+    const mcc: MccRiskMap = JSON.parse(
+        readFileSync(join(RESOURCES_DIR, "mcc_risk.json"), "utf8")
+    );
 
-        const decompressed = await gunzipPromise(referenceS);
-        const referencesData = JSON.parse(decompressed.toString('utf8'));
+    const bin = readFileSync(join(RESOURCES_DIR, "references.bin"));
 
-        const norm = JSON.parse(normS);
-        const mcc = JSON.parse(mccS);
-        const index = buildKnnIndex(referencesData);
+    const n = bin.readUInt32LE(0);
 
-        return { norm, mcc, index }
+    const vectorsOffset = 4;
+    const labelsOffset  = vectorsOffset + n * VECTOR_SIZE * 2;
 
-    } catch(e) {
-        throw e;
-    }
+    const vectors = new Int16Array(bin.buffer, bin.byteOffset + vectorsOffset, n * VECTOR_SIZE);
+    const labels  = new Uint8Array(bin.buffer,  bin.byteOffset + labelsOffset,  n);
+
+    return { norm, mcc, index: new KnnIndex(vectors, labels) };
 }
