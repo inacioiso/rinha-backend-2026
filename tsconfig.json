@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+
+    "target": "ES2022",                                  /* Versão moderna do JS para Node.js recente */
+    "module": "NodeNext",                                /* Recomendado para suporte total a ESM/CommonJS */
+    "moduleResolution": "NodeNext",
+    "outDir": "./dist",                                  /* Pasta onde o código compilado será salvo */
+    "rootDir": "./src",                                  /* Pasta onde está seu código TypeScript */
+    "removeComments": true,                              /* Remove comentários para diminuir o bundle */
+
+    "strict": true,                                      /* Ativa todas as verificações rigorosas */
+    "noImplicitAny": true,                               /* Erro para variáveis sem tipo definido */
+    "strictNullChecks": true,                            /* Impede erros de 'null' ou 'undefined' inesperados */
+    "noUnusedLocals": true,                              /* Erro para variáveis criadas e não usadas */
+    "noUnusedParameters": false,                          /* Erro para parâmetros de função não usados */
+    "noImplicitReturns": true,                           /* Garante que toda função retorne algo explicitamente */
+
+    "esModuleInterop": true,                             /* Melhora a compatibilidade ao importar pacotes CommonJS */
+    "forceConsistentCasingInFileNames": true,            /* Garante consistência de maiúsculas/minúsculas em imports */
+    "skipLibCheck": true,                                /* Pula a checagem de tipos de bibliotecas externas (mais rápido) */
+    "resolveJsonModule": true                            /* Permite importar arquivos .json diretamente */
+  },
+  "include": ["src/**/*"],                               /* Arquivos a serem incluídos na compilação */
+  "exclude": ["node_modules", "**/*.spec.ts", "dist"]    /* Arquivos a serem ignorados */
+}
