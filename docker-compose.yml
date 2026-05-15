@@ -20,7 +20,7 @@ services:
           memory: "50MB"
 
   api1:
-    build: .
+    image: inacioso/rinha-2026:latest 
     environment:
       PORT: "9999"
       HOST: "0.0.0.0"
@@ -37,7 +37,7 @@ services:
           memory: "150MB"
 
   api2:
-    build: .
+    image: inacioso/rinha-2026:latest 
     environment:
       PORT: "9999"
       HOST: "0.0.0.0"

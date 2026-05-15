@@ -1,0 +1,7 @@
+{
+    "participants": ["Inácio Sampaio"],
+    "social": ["https://github.com/inacioiso", "https://www.linkedin.com/in/inacio-sampaio-63889a289/"],
+    "source-code-repo": "https://github.com/inacioiso/rinha-backend-2026",
+    "stack": ["typescript", "node.js", "nginx", "fastify", "docker"],
+    "open_to_work": true
+}
