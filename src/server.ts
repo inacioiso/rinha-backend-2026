@@ -1,6 +1,6 @@
 import Fastify from "fastify";
-import { Routes } from "./routes";
-import { loadSet } from "./service/loader";
+import { Routes } from "./routes.js";
+import { loadSet } from "./service/loader.js";
 
 const app = Fastify({ logger: false });
 

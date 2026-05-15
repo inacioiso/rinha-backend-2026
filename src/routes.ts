@@ -1,8 +1,8 @@
 import { FastifyInstance } from "fastify";
-import { TransactionRequest, TransactionResponse } from "./types/transaction-type";
-import { DataBundle } from "./service/loader";
-import { sharedQuery, toVector } from "./service/vectorize";
-import { fraudScoreSchema } from "./schema/fraude-score-shcema";
+import { TransactionRequest, TransactionResponse } from "./types/transaction-type.js";
+import { DataBundle } from "./service/loader.js";
+import { sharedQuery, toVector } from "./service/vectorize.js";
+import { fraudScoreSchema } from "./schema/fraude-score-shcema.js";
 
 export async function Routes(
     app: FastifyInstance,
