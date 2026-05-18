@@ -1,5 +1,5 @@
 const K = 5;
-const FRAUD_THRESHOLD = 0.6;
+const FRAUD_THRESHOLD = 0.4;
 
 export class KnnIndex {
 
@@ -55,21 +55,4 @@ export class KnnIndex {
 
         return { fraud_score, approved };
     }
-}
-
-export function buildKnnIndex(records: Array<{ vector: number[], label: string }>): KnnIndex {
-
-    const n = records.length;
-    const data = new Int16Array(14 * n);
-    const labels = new Uint8Array(n);
-
-    for (let i = 0; i < n; i++) {
-        const base = i * 14;
-        for (let j = 0; j < 14; j++) {
-            data[base + j] = Math.round(records[i].vector[j] * 10000);
-        }
-        labels[i] = records[i].label === 'fraud' ? 1 : 0;
-    }
-
-    return new KnnIndex(data, labels);
 }
