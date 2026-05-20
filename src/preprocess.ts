@@ -34,10 +34,6 @@ for (let i = 0; i < n; i++) {
     labels[i] = records[i].label === "fraud" ? 1 : 0;
 }
 
-// formato do arquivo:
-// [4 bytes: quantidade de registros]
-// [n * 14 * 2 bytes: vetores em Int16]
-// [n bytes: labels]
 const header = Buffer.allocUnsafe(4);
 header.writeUInt32LE(n, 0);
 

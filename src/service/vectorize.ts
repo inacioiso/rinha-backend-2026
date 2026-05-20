@@ -56,4 +56,4 @@ export function toVector(
     vector[13] = normalize(merchant.avg_amount / norm.max_merchant_avg_amount);
 }
 
-export const sharedQuery = new Float32Array(14);
+export const Query = new Float32Array(14);
